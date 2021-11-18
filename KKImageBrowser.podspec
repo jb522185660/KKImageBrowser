@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'KKImageBrowser/Classes/*'
+  s.source_files = 'KKImageBrowser/Classes/**/*'
   
   # s.resource_bundles = {
   #   'KKImageBrowser' => ['KKImageBrowser/Assets/*.png']
