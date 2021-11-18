@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KKImageBrowser'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'A very useful picture preview tool. (Anti-WeChat picture preview)'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'KKImageBrowser/Classes/**/*'
+  s.source_files = 'KKImageBrowser/Classes/*'
   
   # s.resource_bundles = {
   #   'KKImageBrowser' => ['KKImageBrowser/Assets/*.png']
