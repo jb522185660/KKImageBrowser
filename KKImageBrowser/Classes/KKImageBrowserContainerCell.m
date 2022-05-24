@@ -176,14 +176,14 @@
 - (void)whenLongPress:(UILongPressGestureRecognizer *)sender {
     NSLog(@"长按");
     if (sender.state == UIGestureRecognizerStateBegan) {
-        UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认保存图片到相册吗" preferredStyle: UIAlertControllerStyleActionSheet
+        UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle: UIAlertControllerStyleActionSheet
         ];
         __weak typeof(self) weakSelf = self;
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             NSLog(@"取消保存图片");
             weakSelf.alertWindow.hidden = YES;
         }];
-        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"保存图片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSLog(@"确认保存图片");
             weakSelf.alertWindow.hidden = YES;
             UIImageWriteToSavedPhotosAlbum(self.browserImageView.image,self,@selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:),nil);
