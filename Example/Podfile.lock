@@ -1,0 +1,26 @@
+PODS:
+  - KKImageBrowser (0.1.3):
+    - SDWebImage (= 5.12.5)
+  - SDWebImage (5.12.5):
+    - SDWebImage/Core (= 5.12.5)
+  - SDWebImage/Core (5.12.5)
+
+DEPENDENCIES:
+  - KKImageBrowser (from `../`)
+  - SDWebImage (= 5.12.5)
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  KKImageBrowser:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  KKImageBrowser: 421a0768039cf649bd3f63a3c2ca9ed216d36f4c
+  SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
+
+PODFILE CHECKSUM: 814e84b94e65207e445af2302984741b3e491a4f
+
+COCOAPODS: 1.11.2

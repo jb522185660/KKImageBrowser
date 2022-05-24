@@ -1,8 +1,8 @@
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '12.0'
 
 target 'KKImageBrowser_Example' do
   pod 'KKImageBrowser', :path => '../'
-  pod 'SDWebImage', '~> 5.0.1'
+  pod 'SDWebImage', '5.12.5'
 end

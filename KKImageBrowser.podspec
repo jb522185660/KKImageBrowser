@@ -43,5 +43,5 @@ Pod::Spec.new do |s|
           'KKImageBrowser/Classes/KKImageBrowserModel.h',
   ]
   s.frameworks = 'UIKit'
-  s.dependency 'SDWebImage', '~> 5.0.1'
+  s.dependency 'SDWebImage', '5.12.5'
 end

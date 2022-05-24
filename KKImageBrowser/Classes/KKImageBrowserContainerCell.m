@@ -15,6 +15,9 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapOneGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, assign) CGPoint panBeginPoint;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+
+@property (nonatomic, strong) UIWindow *alertWindow;
 
 @end
 
@@ -25,6 +28,16 @@
         [self setupSubviews];
     }
     return self;
+}
+
+- (UIWindow *)alertWindow {
+    if (_alertWindow == nil) {
+        _alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _alertWindow.rootViewController = [[UIViewController alloc] init];
+        _alertWindow.windowLevel = UIWindowLevelAlert;
+        _alertWindow.backgroundColor = [UIColor clearColor];
+    }
+    return _alertWindow;
 }
 
 - (void)setupSubviews {
@@ -62,6 +75,8 @@
     [self.tapOneGestureRecognizer requireGestureRecognizerToFail:self.tapTwoGestureRecognizer];
     [self.tapOneGestureRecognizer requireGestureRecognizerToFail:self.panGestureRecognizer];
     [self.tapTwoGestureRecognizer requireGestureRecognizerToFail:self.panGestureRecognizer];
+    self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(whenLongPress:)];
+    [self addGestureRecognizer:self.longPressGestureRecognizer];
 }
 
 //单击手势
@@ -155,6 +170,45 @@
         if (self.whenChangeBackgroundAlpha) {
             self.whenChangeBackgroundAlpha(value);
         }
+    }
+}
+
+- (void)whenLongPress:(UILongPressGestureRecognizer *)sender {
+    NSLog(@"长按");
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认保存图片到相册吗" preferredStyle: UIAlertControllerStyleActionSheet
+        ];
+        __weak typeof(self) weakSelf = self;
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"取消保存图片");
+            weakSelf.alertWindow.hidden = YES;
+        }];
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"确认保存图片");
+            weakSelf.alertWindow.hidden = YES;
+            UIImageWriteToSavedPhotosAlbum(self.browserImageView.image,self,@selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:),nil);
+        }];
+        [alertControl addAction:cancel];
+        [alertControl addAction:confirm];
+        
+        [self.alertWindow makeKeyAndVisible];
+        [self.alertWindow.rootViewController presentViewController:alertControl animated:YES completion:nil];
+    }
+}
+
+- (void)imageSavedToPhotosAlbum:(UIImage*)image didFinishSavingWithError: (NSError*)error contextInfo:(id)contextInfo{
+    if (error == nil) {
+        UIAlertController *alertControl = [UIAlertController alertControllerWithTitle:nil message:@"保存成功" preferredStyle: UIAlertControllerStyleAlert
+        ];
+        __weak typeof(self) weakSelf = self;
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"确认保存图片");
+            weakSelf.alertWindow.hidden = YES;
+        }];
+        [alertControl addAction:confirm];
+        
+        [self.alertWindow makeKeyAndVisible];
+        [self.alertWindow.rootViewController presentViewController:alertControl animated:YES completion:nil];
     }
 }
 
